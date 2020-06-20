@@ -1,0 +1,24 @@
+Daniel Moscoe
+
+1. When ping is invoked, it prints a period and starts a new line.
+When baffle is invoked, it prints "wug" and then invokes ping.
+
+The output of the program is:
+No, I wug.
+You wugga wug.
+I wug.
+
+2. A stack diagram shows a frame containing each method's parameters
+and variables at a specific instant. But the methods here contain no
+parameters or variables. So the boxes to the right of each method's name
+are empty. The methods invoked in order are:
+
+main   [     ]
+zoop   [     ]
+baffle [     ]
+ping   [     ]
+
+3. Invoking baffle at the end of ping would prevent the program from
+ending. That's because baffle in turn invokes ping, which would in turn
+invoke baffle again. This pattern of invocations, baffle-ping-baffle-ping...
+would repeat forever.
