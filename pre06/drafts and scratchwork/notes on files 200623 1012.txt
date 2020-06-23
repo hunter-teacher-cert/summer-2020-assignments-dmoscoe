@@ -1,0 +1,6 @@
+Draft06230952.java has everything that works in it as of 9:52. It's copied from Draft1951 and annotated.
+
+Scratch0623 is where I'm trying to figure out exercise 5 part 2.
+
+Scratch1943 is obsolete.
+

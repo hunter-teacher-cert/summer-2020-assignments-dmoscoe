@@ -22,10 +22,25 @@ public class Draft1951 {
 		float myexp = 1;
 		while (n > 0) {
 			myexp += power(x,n)/factorial(n);
-			System.out.println("next term is " + power(x,n)/factorial(n) + ", n = " + n + ", myexp = " + myexp);
+			//System.out.println("next term is " + power(x,n)/factorial(n) + ", n = " + n + ", myexp = " + myexp);
 			n -= 1;
 			
 		} return myexp;
+	}
+
+	/**A different strategy for approximating e^x: notice that the numerator of each term = 
+	its predecessor * x. Denominator of each term is predecessor * i. So I think this means
+	to use a recursive method. */
+	
+	public static float myexpRecurs(int x, int n) {
+		int i = 1;
+		float summand = 1;
+		float sum = 0;
+		while (i <= n) {
+			summand = summand * (x/i);
+			sum = sum + summand;
+			i += 1;
+		} return sum;
 	}
 
 	public static void main(String[] args) {
