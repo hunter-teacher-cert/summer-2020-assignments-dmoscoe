@@ -92,26 +92,40 @@ public class ArrayExample {
 	public static void main(String[] args) {
 		double[] a = new double[4]; //an example of powArray
 		a[0] = 2.3;
-		a[1] = 4*3;
+		a[1] = 12;
 		a[2] = 0.333;
 		a[3] = -1.0;
 		double[] b = new double[4];
 		b = powArray(a, 2);
-		System.out.println(Arrays.toString(b));
+		System.out.println("An example of powArray on [2.3, 12, 0.333, -1.0]: " + Arrays.toString(b));
+		System.out.println("");
+		System.out.println("");
 		
-		int[] c = new int[100]; //an example of histogram
+		int[] c = new int[100]; //an example of indexOfMax
 		Random random = new Random();
 		for (int i = 0; i < c.length; i++) {
 			c[i] = random.nextInt(100);
 		}
-		System.out.println(Arrays.toString(c));
-		System.out.println(indexOfMax(c));
-		int[] d = new int[100];
-		d = histogram(c, 10);
+		System.out.println("An array of 100 random ints on [1,99]: " + Arrays.toString(c));
+		System.out.println("");
+		System.out.println("An example of indexOfMax on the above array: indexOfMax = " + indexOfMax(c));
+		System.out.println("");
+		System.out.println("");
+		
+		Scanner in = new Scanner(System.in); //an example of histogram
+		System.out.println("How many counters should the histogram have? ");
+		int counters = in.nextInt();
+		int[] d = new int[counters];
+		System.out.println("Here is a histogram on the random int array above with " + counters + " counters.");
+		d = histogram(c, counters);
 		System.out.println(Arrays.toString(d));
-		Scanner in = new Scanner(System.in); //example of sieve
+		System.out.println("");
+		System.out.println("");
+		
+		Scanner inn = new Scanner(System.in); //example of sieve
 		System.out.print("What int will you put in the sieve? ");
-		int n = in.nextInt();
+		int n = in.nextInt() - 1; //array should only display up to n-1.
+		System.out.println("The Boolean at index i in the array below tells whether i + 1 is prime.");
 		System.out.println(Arrays.toString(sieve(n)));
 	}
 }

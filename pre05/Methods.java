@@ -1,11 +1,7 @@
 import java.util.Scanner;
 public class Methods {
-	public static boolean isDivisible(int m, int n) {
-		if (n * (m/n) == m) {
-			return true;
-		} else {
-			return false;
-		}
+	public static boolean isDivisible(int n, int m) { //n dividend, m divisor.
+		return (m * (n/m) == n);
 	}
 	
 	/**
@@ -16,7 +12,7 @@ public class Methods {
 		return firstCheck && secondCheck && thirdCheck;
 	}
 	*/
-	public static boolean isTriangle(double a, double b, double c) {
+	public static boolean isTriangle(int a, int b, int c) {
 	if (a + b < c) {
 		return false;
 	} else if (a + c < b) {
@@ -47,14 +43,14 @@ public class Methods {
 		divisor = in.nextInt();
 		System.out.println("It is " + isDivisible(dividend, divisor) + " that " + divisor + " evenly divides " + dividend + ".");
 		
-		double d, e, f;
+		int d, e, f;
 		//Scanner in = new Scanner(System.in);
 		System.out.print("Enter a: ");
-		d = in.nextDouble();
+		d = in.nextInt();
 		System.out.print("Enter b: ");
-		e = in.nextDouble();
+		e = in.nextInt();
 		System.out.print("Enter c: ");
-		f = in.nextDouble();
+		f = in.nextInt();
 		System.out.println("It is " + isTriangle(d, e, f) + " that there is a triangle with sides " + d + ", " + e + ", and " + f + ".");
 	
 		int g, h;
