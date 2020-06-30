@@ -60,6 +60,8 @@ public class DailyWork0630 {
 		}//end for r
 	}//end invert
 
+/**diagonal() below is my original attempt.
+
 	public static void diagonal(int[][] d2, int r, int c, int direction, int value) {
 		if (direction == 3) {
 			for (int i = r; i < d2.length && c < d2[r].length; i++) {
@@ -85,6 +87,28 @@ public class DailyWork0630 {
 				c--;
 			}//end for i
 		}//end else	
+	}//end diagonal
+*/
+
+/**diagonal() below is Tsee Lee's code. */
+
+	public static void diagonal(int[][] d2, int r, int c, int direction, int value) {
+		if (r >= d2.length || c >= d2[0].length || r < 0 || c < 0) {
+			return; //Didn't know you could do this-- just kick out of the statement? Is this like break?
+		}
+		d2[r][c] = value; //Set the first value.
+		if (direction < 2) {
+			r--;
+		} else {
+			r++;
+		}
+		if (direction % 2 == 0) {
+			c--;
+		} else {
+			c++;
+		}
+		diagonal(d2,r,c,direction,value);
+	
 	}//end diagonal
 
 	public static void main(String[] args) {
