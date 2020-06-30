@@ -28,7 +28,7 @@ public class Loops {
 		float myexp = 1;
 		while (n > 0) {
 			myexp += power(x,n)/factorial(n);
-			//System.out.println("next term is " + power(x,n)/factorial(n) + ", n = " + n + ", myexp = " + myexp);
+			System.out.println("next term is " + power(x,n)/factorial(n) + ", n = " + n + ", myexp = " + myexp);
 			n -= 1;
 		} return myexp;
 	}
