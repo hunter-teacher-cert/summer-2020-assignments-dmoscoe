@@ -1,6 +1,6 @@
 import java.util.*;
 import java.io.*;
-class Life {
+class Scratch1337 {
 
 /*actually createNewBoard just seems to be filling the board, not creating it. */
 	public static int[][] createNewBoard(int rows, int cols) {
@@ -96,35 +96,33 @@ class Life {
 	
 	
 	public static void main(String[] args) {
-	System.out.println("Hello!");
-	int[][] board = createNewBoard(20,20);
+	int boardRows;
+	int boardCols;
+	Scanner boardDims = new Scanner(System.in);
+	System.out.print("boardRows = ");
+	boardRows = boardDims.nextInt();
+	System.out.print("boardCols = ");
+	boardCols = boardDims.nextInt();
+	int[][] board = createNewBoard(boardRows,boardCols);
 	printBoard(board);
+	setCell(board,7,8,1); //"small exploder"
+	setCell(board,8,7,1);
+	setCell(board,8,8,1);
+	setCell(board,8,9,1);
+	setCell(board,9,7,1);
+	setCell(board,9,9,1);
+	setCell(board,10,8,1);
 	System.out.println();
-	setCell(board,3,2,1);
-	setCell(board,3,3,1);
-	setCell(board,3,4,0);
-	setCell(board,4,2,1);
-	setCell(board,3,1,1);
-	setCell(board,2,2,1);
-	printBoard(board);
-/* 	System.out.println("countNeighbors(board,3,2) = " + countNeighbors(board,3,2));
-	System.out.println("countNeighbors(board,3,3) = " + countNeighbors(board,3,3));
-	System.out.println("countNeighbors(board,4,2) = " + countNeighbors(board,4,2));
-	System.out.println("countNeighbors(board,4,3) = " + countNeighbors(board,4,3));
-	
-	System.out.println("getNextGenCell(board,3,2) = " + getNextGenCell(board,3,2));
-	System.out.println("getNextGenCell(board,3,3) = " + getNextGenCell(board,3,3));
-	System.out.println("getNextGenCell(board,4,2) = " + getNextGenCell(board,4,2));
-	System.out.println("getNextGenCell(board,4,3) = " + getNextGenCell(board,4,3));
-	System.out.println("getNextGenCell(board,4,4) = " + getNextGenCell(board,4,4));
- */	System.out.println();
-	printBoard(generateNextBoard(board));
-	System.out.println();
-	printBoard(generateNextBoard(generateNextBoard(board)));
-	System.out.println();
-	printBoard(generateNextBoard(generateNextBoard(generateNextBoard(board))));
 	printCharBoard(toChar(board));
-	
+	System.out.println();
+	System.out.println("---------------");
+	for (int i = 0; i < 10; i++) {
+		board = generateNextBoard(board);
+		printCharBoard(toChar(board));
+		System.out.println();
+		System.out.println("---------------");
+		System.out.println();
+	}
 	}//end main
 
 
