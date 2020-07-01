@@ -1,6 +1,6 @@
 import java.util.*;
 import java.io.*;
-class Scratch1337 {
+class Life {
 
 /*actually createNewBoard just seems to be filling the board, not creating it. */
 	public static int[][] createNewBoard(int rows, int cols) {
@@ -49,11 +49,9 @@ class Scratch1337 {
 			neighborhoodPop += board[i][j];		
 		}//end for j
 	}//end for i
-	if (board[r][c] == 1) {
-		return neighborhoodPop - 1;
-	} else {
-		return neighborhoodPop;	
-	}
+		
+	neighborhoodPop -= board[r][c] == 1? 1: 0;
+	
 	}//end countNeighbors
 
 	public static int getNextGenCell(int[][] board, int r, int c){
@@ -104,7 +102,7 @@ class Scratch1337 {
 	System.out.print("boardCols = ");
 	boardCols = boardDims.nextInt();
 	int[][] board = createNewBoard(boardRows,boardCols);
-	printBoard(board);
+	//printBoard(board);
 	setCell(board,7,8,1); //"small exploder"
 	setCell(board,8,7,1);
 	setCell(board,8,8,1);
@@ -116,7 +114,7 @@ class Scratch1337 {
 	printCharBoard(toChar(board));
 	System.out.println();
 	System.out.println("---------------");
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 20; i++) {
 		board = generateNextBoard(board);
 		printCharBoard(toChar(board));
 		System.out.println();
