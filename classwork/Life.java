@@ -50,7 +50,7 @@ class Life {
 		}//end for j
 	}//end for i
 		
-	neighborhoodPop -= board[r][c] == 1? 1: 0;
+	return neighborhoodPop -= board[r][c] == 1? 1: 0;
 	
 	}//end countNeighbors
 
