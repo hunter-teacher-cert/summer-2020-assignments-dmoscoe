@@ -48,9 +48,15 @@ public class Time {
 	}//end setters
 	
 	public String toString() {
-		return String.format("%02d:%02d:%04.1f\n", this.hour, this.minute, this.second);
+		if (this.hour == 0) {
+			return String.format("12:%02d:%04.1f AM", this.minute, this.second);
+		} else if (Math.abs(this.hour) > 0 && Math.abs(this.hour) < 12) {
+			return String.format("%02d:%02d:%04.1f AM", this.hour, this.minute, this.second);
+		} else {
+			return String.format("%02d:%02d:%04.1f PM", this.hour-12, this.minute, this.second);
+		}
 	}
-
+	
 	public boolean equals(Time that) {
 		return (this.hour == that.hour && this.minute == that.minute && this.second == that.second);
 	}
@@ -78,6 +84,29 @@ public class Time {
 		return sum;
 	}//end add
 
+	public Time subtract(Time that) {
+		Time diff = new Time();
+		diff.hour = this.hour - that.hour;
+		diff.minute = this.minute - that.minute;
+		diff.second = this.second - that.second;
+		
+		if (diff.second < 0.0) {
+			diff.second += 60.0;
+			diff.minute -= 1;
+		}
+		
+		if (diff.minute < 0) {
+			diff.minute += 60;
+			diff.hour -= 1;
+		}
+		
+		if (diff.hour < 0) {
+			diff.hour += 24;
+		}
+
+		return diff;
+	}//end subtract
+
 	public void increment(double seconds) {
 		this.second += seconds;
 		while (this.second >= 60.0) {
@@ -92,5 +121,10 @@ public class Time {
 			this.hour -= 24;
 		}
 	}//end increment
+
+	public void addMinutes(double minutes) {
+		double seconds = 60 * minutes;
+		increment(seconds);
+	}//end addMinutes
 
 }//end class
