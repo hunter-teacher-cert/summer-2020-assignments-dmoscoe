@@ -52,6 +52,7 @@ public class SuperArray {
 		bop.add(4);
 		System.out.println(bop.get(1));
 		System.out.println(bop.toString());
+		System.out.println(bop.isEmpty());
 	}
 		
 }//end class
