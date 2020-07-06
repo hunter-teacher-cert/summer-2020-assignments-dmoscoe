@@ -9,19 +9,19 @@ public class SuperArray {
 		this.numberElements = 0;
 	}
 	
-	public SuperArray(int size) { //value constructor.
-		this.data = new int[size];
+	public SuperArray(int capacity) { //value constructor.
+		this.data = new int[capacity];
 		this.numberElements = 0;
 	}
 
-	public void add(int value) { //is this a setter?
+	public void add(int value) { //setter
 		if (this.numberElements < this.data.length) {
 			this.data[numberElements] = value;
 			this.numberElements++;
 		}
 	}
 
-	public int get (int index) {
+	public int get (int index) { //getter
 		if (index < this.data.length) {
 			return this.data[index];
 		} else {
@@ -35,10 +35,10 @@ public class SuperArray {
 	
 	public String toString() {
 		String output = new String();
-		output = ("[" + this.data[0]);
+		output = "[" + this.data[0];
 		int i = 1;
 		while (i < this.numberElements) {
-			output += (", " + this.data[i]); //nope. Or could use +=
+			output += ", " + this.data[i]; //nope. Or could use +=
 			i++;
 		}
 		output += "]";
