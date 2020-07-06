@@ -5,13 +5,13 @@ public class SuperArray {
 	private int numberElements;
 
 	public SuperArray() { //constructor with no parameters. Why do we need a constructor with no parameters?
-		this.data = new int[10]; //Why am I making a new array here?
-		this.numberElements = 0;
+		data = new int[10]; //Why am I making a new array here? No "this." here.
+		numberElements = 0;
 	}
 	
-	public SuperArray(int capacity) { //value constructor.
-		this.data = new int[capacity];
-		this.numberElements = 0;
+	public SuperArray(int capacity) { //value constructor. No "this" here.
+		data = new int[capacity];
+		numberElements = 0;
 	}
 
 	public void add(int value) { //setter
@@ -56,3 +56,5 @@ public class SuperArray {
 	}
 		
 }//end class
+
+/* Questions: When do we use "new" ? Why do we need a constructor with no parameters? Why can we write Superarray sa? and not Superarray(sa)? Why do we initialize the variables before the constructors? (I think this is so that those variables get touched by all the methods in the class.) What does "static" mean? 
