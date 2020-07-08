@@ -97,20 +97,17 @@ public class LList {
 	
 	public int search(String key) {
 		//plan: traverse the LList. At each node, ask whether getData() == key. If yes, return the index. If index == length, return -1.
-		
 		int i = 0;
-		int returnVal = -1; //to be updated with index of node that satisfies the search.
 		Node tmp;
 		tmp = head;
 		while (i < this.length()) {
 			if (key == tmp.getData()) {
-				returnVal = i;//update value to be returned with index of node that satisfies search.
-				break;//stop after you've found the first instance of the search term.
+				return i;//stop after you've found the first instance of the search term.
 			}
 			tmp = tmp.getNext();
 			i++;
 		}
-		return returnVal;
+		return -1;
 	}
 	
 	public void remove(int index) {
