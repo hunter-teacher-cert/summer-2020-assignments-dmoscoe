@@ -75,7 +75,7 @@ public class LList {
 		}
 	}
 	
-public void insert(int index, String value) { 
+	public void insert(int index, String value) { 
 		if (index == 0) {
 			this.addFront(value);
 		} else {
@@ -93,4 +93,42 @@ public void insert(int index, String value) {
 			}
 		}
 	}
+	
+	public int search(String key) {
+		//plan: traverse the LList. At each node, ask whether getData() == key. If yes, return the index. If index == length, return -1.
+		
+		int i = 0;
+		int j = -1; //to be updated with index of node that satisfies the search.
+		Node tmp;
+		tmp = head;
+		while (i < this.length()) {
+			if (key == tmp.getData()) {
+				j = i;//update value to be returned with index of node that satisfies search.
+				break;//stop after you've found the first instance of the search term.
+			}
+			tmp = tmp.getNext();
+			i++;
+		}
+		return j;
+	}
+	
+	public void remove(int index) {
+		//plan: make a tmp node. Traverse to index - 1. set this node's Next to the next of its successor. (Skip a node.)
+		if (index == 0) { //be- and re-heading the LList.
+			head = head.getNext();
+		} else {
+			if (index <= this.length()) {
+				int i = 1;
+				Node tmp;
+				tmp = head;
+				while (i < index) {
+					tmp = tmp.getNext();
+					i++;
+				}
+				tmp.setNext(tmp.getNext().getNext());
+			}
+		}
+	}
+		
+	
 }//end class

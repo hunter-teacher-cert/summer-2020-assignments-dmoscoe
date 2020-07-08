@@ -37,7 +37,7 @@ public class LListDriver {
    g.insert(10, "too far");
    System.out.println(g);
 
-/*    System.out.println("\nTest search \"woo!\", \"cool\", \"too far\"");
+    System.out.println("\nTest search \"woo!\", \"cool\", \"too far\"");
    System.out.println(g.search("woo!"));
    System.out.println(g.search("cool"));
    System.out.println(g.search("too far"));
@@ -46,7 +46,7 @@ public class LListDriver {
    g.remove(0);
    System.out.println(g);
    g.remove(2);
-   System.out.println(g); */
+   System.out.println(g);
 
   }//main
 }//LListDriver
