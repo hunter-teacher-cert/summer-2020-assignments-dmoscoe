@@ -24,7 +24,7 @@ public class SuperArray {
 		}
 	}
 
-	public void set(int index, int value) {
+	public void set(int index, int value) { //look at Topher's setter. It saves the oldVal using return. Never seen that before.
 		if (index < this.data.length) {
 			this.data[index] = value;
 		}
@@ -54,8 +54,8 @@ public class SuperArray {
 		return output;
 	}
 	
-	public void grow() {
-		SuperArray that = new SuperArray(this.data.length + 5);
+	private void grow() { //Topher made this private, since you would only ever call it from this class. But I'm not sure exactly what that means. I think it means that only other methods in this class can call grow. This is a difference between testing this class with a main method here as opposed to only in a driver. In a driver, you cannot directly test private methods. But with a main method here, you can directly test private methods.
+		SuperArray that = new SuperArray(this.data.length + 5); //see if you can increase by a percentage.
 		int i = 0;
 		while (i < this.data.length) {
 			that.data[i] = this.data[i];
