@@ -75,18 +75,19 @@ public class LList {
 		}
 	}
 	
-	public void insert(int index, String value) { 
+	public void insert(int index, String value) {
+		//plan: if index == 0 then just use addFront. If index > 0 and valid, then make a new node, inserter(value). Traverse the LList using tmp to index - 1. Set inserter's next to be tmp's next. And set tmp's next to be inserter.
 		if (index == 0) {
 			this.addFront(value);
 		} else {
 			if (index <= this.length()) {
-				int i = 1;
+				int counter = 1;
 				Node inserter = new Node(value);
 				Node tmp;
 				tmp = head;
-				while (i < index) {
+				while (counter < index) {
 					tmp = tmp.getNext();
-					i++;
+					counter++;
 				}
 				inserter.setNext(tmp.getNext());
 				tmp.setNext(inserter);
@@ -98,18 +99,18 @@ public class LList {
 		//plan: traverse the LList. At each node, ask whether getData() == key. If yes, return the index. If index == length, return -1.
 		
 		int i = 0;
-		int j = -1; //to be updated with index of node that satisfies the search.
+		int returnVal = -1; //to be updated with index of node that satisfies the search.
 		Node tmp;
 		tmp = head;
 		while (i < this.length()) {
 			if (key == tmp.getData()) {
-				j = i;//update value to be returned with index of node that satisfies search.
+				returnVal = i;//update value to be returned with index of node that satisfies search.
 				break;//stop after you've found the first instance of the search term.
 			}
 			tmp = tmp.getNext();
 			i++;
 		}
-		return j;
+		return returnVal;
 	}
 	
 	public void remove(int index) {
