@@ -1,15 +1,19 @@
-//a stack is a linked list with *less* functionality. So start with LList and remove stuff.
+//a stack is a LList with *less* functionality. So start with Node and do less than what you did with LList.
 
 import java.io.*;
 import java.util.*;
 
-public class Scratch1535 {
+public class MyStack {
 	private Node head;
 	int size = 0;
 	
-/* 	public Scratch1535() {
+/*
+I thought this constructor was necessary, but it seems like it isn't. And when I uncomment it, it actually produces errors. Why?!
+
+ 	public MyStack() {
 		head = null;
 		int size = 0;
+
 	} */
 	
 	public void push(String data) {
@@ -36,18 +40,5 @@ public class Scratch1535 {
 	
 	public int size() {
 		return size;
-	}
-	
-	public static void main(String[] args) {
-		Scratch1535 g = new Scratch1535();
-		g.push("hello");
-		g.push("who's next?");
-		System.out.println(g.top());
-		System.out.println(g.pop());
-		System.out.println(g.isEmpty());
-		System.out.println(g.size());
-		System.out.println(g.pop());
-		System.out.println(g.isEmpty());
-		System.out.println(g.size());
 	}
 }
