@@ -1,17 +1,22 @@
+// 200711: Replaced the method length() with just a getter. Length now gets incremented live every time a node is added or removed. Added testing for length to the Driver file.
+
 import java.io.*;
 import java.util.*;
 
 public class LList {
 	private Node head; //a linked list is defined by the node at the head of the list.
+	private int length; //Why does length get initialized here and not in public LList() ?
 	
 	public LList() { //is this the only constructor we need? We don't need a value constructor?
 		head = null;
+		length = 0;
 	}
 	
 	public void add(String data) {
 		Node newnode = new Node(data);
 		newnode.setNext(head); //first point the new node to the head of the LList.
 		head = newnode; //point head to the new node.
+		length++;
 	}
 	
 	public String toString() {
@@ -30,6 +35,7 @@ public class LList {
 		Node newnode = new Node(value);
 		newnode.setNext(head);
 		head = newnode;
+		length++;
 	}
 	
 	public boolean isEmpty() {
@@ -37,18 +43,11 @@ public class LList {
 	}
 	
 	public int length() { //needed this to check whether index is out of bounds in get(int index).
-		int i = 0;
-		Node tmp;
-		tmp = head;
-		while (tmp != null) {
-			tmp = tmp.getNext();
-			i++;
-		}
-		return i;
+		return length;
 	}
 	
 	public String get(int index) {
-		if (index < this.length()) {
+		if (index < length) {
 			int i = index;
 			Node tmp;
 			tmp = head;
@@ -63,7 +62,7 @@ public class LList {
 	}
 	
 	public void set(int index, String value) {
-		if (index < this.length()) {
+		if (index < length) {
 			int i = index;
 			Node tmp;
 			tmp = head;
@@ -80,7 +79,7 @@ public class LList {
 		if (index == 0) {
 			this.addFront(value);
 		} else {
-			if (index <= this.length()) {
+			if (index <= length) {
 				int counter = 1;
 				Node inserter = new Node(value);
 				Node tmp;
@@ -91,17 +90,18 @@ public class LList {
 				}
 				inserter.setNext(tmp.getNext());
 				tmp.setNext(inserter);
+				length++;
 			}
 		}
 	}
 	
 	public int search(String key) {
-		//plan: traverse the LList. At each node, ask whether getData() == key. If yes, return the index. If index == length, return -1.
+		//plan: traverse the LList. At each node, ask whether getData() equals key. If yes, return the index. If index == length, return -1.
 		int i = 0;
 		Node tmp;
 		tmp = head;
-		while (i < this.length()) {
-			if (key == tmp.getData()) {
+		while (i < length) {
+			if (key.equals(tmp.getData())) {
 				return i;//stop after you've found the first instance of the search term.
 			}
 			tmp = tmp.getNext();
@@ -114,8 +114,9 @@ public class LList {
 		//plan: make a tmp node. Traverse to index - 1. set this node's Next to the next of its successor. (Skip a node.)
 		if (index == 0) { //be- and re-heading the LList.
 			head = head.getNext();
+			length--;
 		} else {
-			if (index <= this.length()) {
+			if (index <= length) {
 				int i = 1;
 				Node tmp;
 				tmp = head;
@@ -123,7 +124,8 @@ public class LList {
 					tmp = tmp.getNext();
 					i++;
 				}
-				tmp.setNext(tmp.getNext().getNext());
+			tmp.setNext(tmp.getNext().getNext());
+			length--;
 			}
 		}
 	}
