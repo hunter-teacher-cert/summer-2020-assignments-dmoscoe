@@ -1,4 +1,4 @@
-// 200711: Replaced the method length() with just a getter. Length now gets incremented live every time a node is added or removed. Added testing for length to the Driver file.
+// 200711: Replaced the method length() with just a getter. Length now gets incremented live every time a node is added or removed. Added testing for length to the Driver file. Added nodeAt and refactored other methods.
 
 import java.io.*;
 import java.util.*;
@@ -19,7 +19,22 @@ public class LList {
 		length++;
 	}
 	
-	public String toString() {
+	public Node nodeAt(int index) { //returns a node at a given index.
+		if (index < length) {
+			int i = index;
+			Node tmp;
+			tmp = head;
+			while (i > 0) {
+				tmp = tmp.getNext();
+				i--;
+			}
+			return tmp;
+		} else {
+			return null; // replace with exception
+		}
+	}
+	
+/* 	public String toString() {
 		String s = "";
 		Node tmp;
 		tmp = head;
@@ -28,6 +43,16 @@ public class LList {
 			tmp = tmp.getNext();
 		}
 		s = s + "null"; //indicates that you've reached the end of the LList.
+		return s;
+	} */
+	
+	public String toString() { //utilizes nodeAt().
+		String s = "";
+		int i = 0;
+		while (i < length) {
+			s += (this.nodeAt(i).getData() + " ");
+			i++;
+		}
 		return s;
 	}
 
@@ -46,7 +71,7 @@ public class LList {
 		return length;
 	}
 	
-	public String get(int index) {
+/* 	public String get(int index) {
 		if (index < length) {
 			int i = index;
 			Node tmp;
@@ -59,9 +84,13 @@ public class LList {
 		} else {
 			return null;
 		}
+	} */
+	
+	public String get(int index) { //utilizes nodeAt().
+		return this.nodeAt(index).getData(); //include an exception here for when index is greater than length. Or do you include the exception back at nodeAt()? I think you do it here...
 	}
 	
-	public void set(int index, String value) {
+/* 	public void set(int index, String value) {
 		if (index < length) {
 			int i = index;
 			Node tmp;
@@ -72,9 +101,13 @@ public class LList {
 			}
 			tmp.setData(value);
 		}
+	} */
+	
+	public void set(int index, String value) { //utilizes nodeAt().
+		this.nodeAt(index).setData(value);
 	}
 	
-	public void insert(int index, String value) {
+/* 	public void insert(int index, String value) {
 		//plan: if index == 0 then just use addFront. If index > 0 and valid, then make a new node, inserter(value). Traverse the LList using tmp to index - 1. Set inserter's next to be tmp's next. And set tmp's next to be inserter.
 		if (index == 0) {
 			this.addFront(value);
@@ -93,9 +126,22 @@ public class LList {
 				length++;
 			}
 		}
+	} */
+	
+	public void insert(int index, String value) { //utilizes nodeAt().
+		if (index == 0) {
+			this.addFront(value);
+		} else {
+			if (index <= length) {
+				Node inserter = new Node(value);
+				inserter.setNext(this.nodeAt(index));
+				this.nodeAt(index - 1).setNext(inserter);
+				length++;
+			}
+		}
 	}
 	
-	public int search(String key) {
+/* 	public int search(String key) {
 		//plan: traverse the LList. At each node, ask whether getData() equals key. If yes, return the index. If index == length, return -1.
 		int i = 0;
 		Node tmp;
@@ -108,9 +154,20 @@ public class LList {
 			i++;
 		}
 		return -1;
+	} */
+	
+	public int search(String key) { //utilizes nodeAt().
+		int i = 0;
+		while (i < length) {
+			if (key.equals(this.nodeAt(i).getData())) {
+				return i;
+			}
+			i++;
+		}
+		return -1;
 	}
 	
-	public void remove(int index) {
+/* 	public void remove(int index) {
 		//plan: make a tmp node. Traverse to index - 1. set this node's Next to the next of its successor. (Skip a node.)
 		if (index == 0) { //be- and re-heading the LList.
 			head = head.getNext();
@@ -127,6 +184,19 @@ public class LList {
 			tmp.setNext(tmp.getNext().getNext());
 			length--;
 			}
+		}
+	} */
+	
+	public void remove(int index) { //utilizes nodeAt()
+		if (index == 0) {
+			head = head.getNext();
+			length--;
+		} else if (index < length - 1) { //go to the node preceding index, and set it's next to the successor of its successor. To remove the last node, replace the penultimate node's next with null.
+			this.nodeAt(index - 1).setNext(this.nodeAt(index + 1));
+			length--;
+		} else if (index == length - 1) {
+			this.nodeAt(index - 1).setNext(null);
+			length--;
 		}
 	}
 		
