@@ -8,8 +8,8 @@ x (1) public static String reverse(String s): takes in a String and returns a St
 x (2) public static boolean isPalindrome(String s): takes in a String and returns true if s is a palindrome of chars. Returns false otherwise.
 x (3) public static boolean parenCheck(String s): Assumes s a mathematical expression containing only letters, numbers, ()+-/*. Returns true if parentheses are correctly matched. Returns false otherwise.
 
-(4) (extension) Modify reverse and isPalindrome s.t. (a) words, not chars, are in reverse order; and (b) words, not chars, are palindromic.
-(5) (extension) Modify parenCheck to include [] and {}.
+x (4) (extension) Modify reverse and isPalindrome s.t. (a) words, not chars, are in reverse order; and (b) words, not chars, are palindromic.
+x (5) (extension) Modify parenCheck to include [] and {}.
 
 */
 
@@ -56,6 +56,30 @@ public class StackApps {
 			return true;
 		}
 		return false;
+	}
+
+	public static String wordReverser(String s) {
+		/*Reverses the order of words in a String. */
+		/*Plan: Push words to a stack, then construct new string by repeatedly popping the stack. */
+		
+		String reverseWords = new String();
+		Stack<String> words = new Stack<String>();
+		
+		for (int i = 0; i < s.split(" ").length; i++) {
+			words.push(s.split(" ")[i]);
+		}
+		
+		while (!words.isEmpty()) {
+			reverseWords += (words.pop() + " ");
+		}
+		
+		return reverseWords.trim();
+	}
+	
+	public static boolean wordsPalindrome(String s) {
+		/*Returns true if s is a word-by-word palindrome, false otherwise. */
+		
+		return s.equals(wordReverser(s));
 	}
 
 	public static boolean grouperCheck(String s) { /*Input: a mathematical expression. Output: true if the arrangement of grouping symbols is legal. False otherwise. Assumes (), [], {} are not hierarchical and do not pair with symbols outside their species. (I.e., (] is not well-formed, but [{}] is.)
@@ -110,7 +134,7 @@ public class StackApps {
 			return false;
 	}
 		
-	public static void main(String[] args) {
+	public static void main(String[] args) { //this is a little messy but it tests some of this stuff.
 		String reverse = new String();
 		reverse = "abcdef";
 		System.out.println(reverse(reverse));
@@ -145,5 +169,8 @@ public class StackApps {
 		System.out.println("iffGroupers1" + grouperCheck(iffGroupers1));
 		System.out.println("iffGroupers2" + grouperCheck(iffGroupers2));
 		System.out.println("iffGroupers3" + grouperCheck(iffGroupers3));
+		String s = "today yesterday today";
+		System.out.println(wordReverser(s)+"x");
+		System.out.println(wordsPalindrome(s));
 	}
 }
