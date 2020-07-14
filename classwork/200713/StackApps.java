@@ -6,7 +6,7 @@ import java.util.*;
 Use Java's built-in Stack class and String methods to implement methods for:
 x (1) public static String reverse(String s): takes in a String and returns a String s.t. chars are in reverse order.
 x (2) public static boolean isPalindrome(String s): takes in a String and returns true if s is a palindrome of chars. Returns false otherwise.
-(3) public static boolean parenCheck(String s): Assumes s a mathematical expression containing only letters, numbers, ()+-/*. Returns true if parentheses are correctly matched. Returns false otherwise.
+x (3) public static boolean parenCheck(String s): Assumes s a mathematical expression containing only letters, numbers, ()+-/*. Returns true if parentheses are correctly matched. Returns false otherwise.
 
 (4) (extension) Modify reverse and isPalindrome s.t. (a) words, not chars, are in reverse order; and (b) words, not chars, are palindromic.
 (5) (extension) Modify parenCheck to include [] and {}.
@@ -58,10 +58,58 @@ public class StackApps {
 		return false;
 	}
 
-
-
-
-
+	public static boolean grouperCheck(String s) { /*Input: a mathematical expression. Output: true if the arrangement of grouping symbols is legal. False otherwise. Assumes (), [], {} are not hierarchical and do not pair with symbols outside their species. (I.e., (] is not well-formed, but [{}] is.)
+	
+	Plan: Traverse the string, pushing left grouping symbols to the stack and popping at right grouping symbols. If pop corresponds to the right grouping symbol, continue. If not, return false. If pop throws an exception before the string is fully traversed, return false. If pop throws an exception after the string is completely traversed, return true. Otherwise return false. */
+	
+		Stack<Character> groupers = new Stack<Character>();
+		boolean keepGoing = true;
+		
+		for (int i = 0; i < s.length(); i++) {
+			if (((Character) s.charAt(i)).equals('(')) {
+				groupers.push('(');
+			} else if (((Character) s.charAt(i)).equals('[')) {
+				groupers.push('[');
+			} else if (((Character) s.charAt(i)).equals('{')) {
+				groupers.push('{');
+			} else if (((Character) s.charAt(i)).equals(')')) {
+				try {
+					keepGoing = (groupers.pop() == '(');
+					if (keepGoing = false) {
+						return false;
+					}
+				} catch (Exception e) {
+					return false;
+				}
+			} else if (((Character) s.charAt(i)).equals(']')) {
+				try {
+					keepGoing = (groupers.pop() == '[');
+					if (keepGoing = false) {
+						return false;
+					}
+				} catch (Exception e) {
+					return false;
+				}
+			} else if (((Character) s.charAt(i)).equals('}')) {
+				try {
+					keepGoing = (groupers.pop() == '{');
+					if (keepGoing = false) {
+						return false;
+					}
+				} catch (Exception e) {
+					return false;
+				}
+			}
+			}
+		
+			try {
+				groupers.pop();
+			} catch (Exception e) {
+				return true;
+			}
+			return false;
+	}
+		
 	public static void main(String[] args) {
 		String reverse = new String();
 		reverse = "abcdef";
@@ -73,6 +121,29 @@ public class StackApps {
 		notPal = "Think Java";
 		System.out.println(isPalindrome(palindrome));
 		System.out.println(isPalindrome(notPal));
-		
+		String wffParens = new String(); //well-formed formula
+		String iffParens1 = new String(); //ill-formed formula
+		String iffParens2 = new String();
+		String iffParens3 = new String();
+		String wffGroupers = new String();
+		String iffGroupers1 = new String();
+		String iffGroupers2 = new String();
+		String iffGroupers3 = new String();
+		wffParens = "((x*x) + 2(x) + (3 * (32 - 89)))";
+		iffParens1 = "((x*x) + 2(x) + (3 * (32 - 89)))))";
+		iffParens2 = "((x*x) + 2(x) + 3 * (32 - 89)))";
+		iffParens3 = "()()(";
+		wffGroupers = "{[x*x] + 2(x) + {3 * (32 - 89)}}";
+		iffGroupers1 = "{[x*x] + 2(x) + {3 * (32 - 89)}}])";
+		iffGroupers2 = "{[x*x] + 2(x) + 3 * (32 - 89)}}";
+		iffGroupers3 = "}[x*x] + 2(x) + {3 * (32 - 89)}}";
+		System.out.println("wffParens" + parenCheck(wffParens));
+		System.out.println("iffParens1" + parenCheck(iffParens1));
+		System.out.println("iffParens2" + parenCheck(iffParens2));
+		System.out.println("iffParens3" + parenCheck(iffParens3));
+		System.out.println("wffGroupers" + grouperCheck(wffGroupers));
+		System.out.println("iffGroupers1" + grouperCheck(iffGroupers1));
+		System.out.println("iffGroupers2" + grouperCheck(iffGroupers2));
+		System.out.println("iffGroupers3" + grouperCheck(iffGroupers3));
 	}
 }
