@@ -3,7 +3,7 @@ import java.io.*;
 
 /* Working on selection sort */
 
-public class Scratch2202 {
+public class SSort {
 
   //return ArrayList of random ints on range [lo,lo+hi)
   public static ArrayList prestoArrayListo(int numItems, int lo, int hi)
@@ -20,17 +20,17 @@ public class Scratch2202 {
     return retArr; //the array is not sorted.
   }//end prestoArrayListo()
   
-	public static ArrayList swapper(ArrayList al, int a, int b) { //Topher said this should be void, I think.
+// 	public static ArrayList swapper(ArrayList al, int a, int b) { //Topher said this should be void, I think.
 	/* Takes an ArrayList of ints called al, and returns an ArrayList of ints in which the entries at index = a and index = b are exchanged. */
 	
 		/* check conditions */
 		
-		if (al.size() < 2 || a < 0 || b < 0 || a > (al.size() - 1) || b > (al.size() - 1)) {
+/* 		if (al.size() < 2 || a < 0 || b < 0 || a > (al.size() - 1) || b > (al.size() - 1)) {
 			return al;
 		}
 		
 		/* initialize variables */
-		ArrayList returnArray = new ArrayList();
+/* 		ArrayList returnArray = new ArrayList();
 		int i = 0; //a counter for traversing al
 		int endValAta = (int) al.get(b); //in the returned array, the value at index a is the value in al at b.
 		int endValAtb = (int) al.get(a); //in the returned array, the value at index b is the value in al at a.
@@ -46,6 +46,17 @@ public class Scratch2202 {
 			i++;
 		}
 		return returnArray;
+	}  */
+
+	
+	public static void swapper(ArrayList al, int a, int b) {
+		
+		if (!(al.size() < 2 || a < 0 || b < 0 || a > (al.size() - 1) || b > (al.size() - 1))) {
+					
+		int endValAta = (int) al.get(b);
+		al.set(b, al.get(a));
+		al.set(a, endValAta);
+		}
 	}
 	
 	public static int min(ArrayList al, int left, int right) {
@@ -60,26 +71,33 @@ public class Scratch2202 {
 		/* initialize variables */
 		
 		int min = (int) al.get(left);
+		int indexOfMin = left;
+		
+		/* update min */
 		
 		for (int i = left; i <= right; i++) {
 			if ((int) al.get(i) < min) {
 				min = (int) al.get(i);
+				indexOfMin = i;
 			}
 		}
-		return min;
+		return indexOfMin;
 	}
 	
 	
 	
 	public static void selectionSort(ArrayList al) {
-		/* Takes an ArrayList of ints and sorts it in ascending order. */
+		
+		for (int leftBound = 0; leftBound < al.size() - 1; leftBound++) { //Find the minimum in the unsorted wilds in the right of the ArrayList. Swap the minimum with the leftBound to expand the sorted region of the array. Keep doing this until the leftBound is the penultimate index of the ArrayList.
+			swapper(al, leftBound, min(al, leftBound, al.size() - 1));
+		}	
 	}
 		
 	
 	
 	
 	
-	public static void main(String[] args) {
+/* 	public static void main(String[] args) {
 		ArrayList sample = new ArrayList();
 		sample = prestoArrayListo(10,0,50);
 		System.out.println(sample.toString());
@@ -98,6 +116,24 @@ public class Scratch2202 {
 		
 		
 	
+	} */
+	
+	public static void main(String[] args) {
+		ArrayList sample = new ArrayList();
+		sample = prestoArrayListo(10,0,50);
+		System.out.println(sample.toString());
+		swapper(sample, 4, 6);
+		System.out.println(sample.toString());
+		swapper(sample, 3, 7);
+		System.out.println(sample.toString());
+		selectionSort(sample);
+		System.out.println(sample.toString());
+		System.out.println("min(sample, 2, 9) = " + min(sample, 2, 9));
+		System.out.println("min(sample, 2, 8) = " + min(sample, 2, 8));
+		System.out.println("min(sample, 2, 7) = " + min(sample, 2, 7));
+		System.out.println("min(sample, 0, 0) = " + min(sample, 0, 0));
+	
 	}
+		
 }
 	
