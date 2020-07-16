@@ -16,7 +16,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Boogle
+public class BoogleScratch2016
 {
 
   //return index of first occurence of target, or -1 if not found
@@ -34,7 +34,7 @@ public class Boogle
 
 
 
-
+/*Commented out this method 200715 2045 to make way for new draft.
 
   //return index of target, or -1 if not found
   public static int binSearch( ArrayList al, int target ) { //if there are multiple occurrences of target, this might not find the first occurrence. Also this doesn't work in some cases. Like when target is at index 0, or when al is very short. Actually it seems to be working now, except for length = 0.
@@ -66,7 +66,7 @@ public class Boogle
 	//placeholder to get past compiler
   //end binSearch()
 
-
+End 200715 2045 comment */
 
   // subgoal: recognize target found (and take what action?)
   // subgoal: recognize search space exhausted (and take what action?)
@@ -76,6 +76,38 @@ public class Boogle
   //nota bene: A helper method could be very useful.
   // Q: Why?
   // Q: What would the parameters be for such a method?
+
+	public static int binSearch(ArrayList al, int target) {
+		/* Check some initial conditions: */
+		
+		if (al.size() == 0 || target < (int) al.get(0) || target > (int) al.get(al.size() - 1)) {
+			return -1;
+		}
+		
+		/* Set up variables */
+		
+		int loBound = 0;
+		int hiBound = al.size() - 1;
+		int compareToTarget = (loBound + hiBound) / 2;
+		
+		/* Start searching! */
+		
+		while (loBound <= hiBound) {
+			if ((int) al.get(compareToTarget) == target) {
+				return compareToTarget;
+			} else if ((int) al.get(compareToTarget) < target) {
+				loBound = compareToTarget + 1;
+				compareToTarget = (loBound + hiBound) / 2;
+			} else if ((int) al.get(compareToTarget) > target) {
+				hiBound = compareToTarget - 1;
+				compareToTarget = (loBound + hiBound) / 2;
+			}
+		}
+		
+		/* If you didn't find it: */
+		
+		return -1;
+	}
 
 
 
@@ -89,9 +121,9 @@ public class Boogle
       //retArr.add( Math.random() ); // [0,1)
       //retArr.add( (int)Math.random() ); // 0
       //retArr.add( (int)(hi * Math.random()) ); // [0,hi)
-      retArr.add( lo + (int)(hi * Math.random()) ); // [lo,lo+hi)
+      retArr.add( lo + (int)(hi * Math.random()) ); // // At each location in the array, add a random int on [lo,lo+hi). The lower bound occurs when Math.random() returns 0. The upper bound is approached when Math.random approaches 1.
 	}
-    return retArr;
+    return retArr; //the array is not sorted.
   }//end prestoArrayListo()
 
 
@@ -117,16 +149,16 @@ public class Boogle
       //retArr.add( lo + (int)(hi * Math.random()) ); // [lo,lo+hi)
       //System.out.println(retArr.get(i-1));
       retArr.add( (int)retArr.get(i-1)
-                  + lo + (int)(hi * Math.random()) ); // ["left neighbour",hi)
+                  + lo + (int)(hi * Math.random()) ); // ["left neighbour",hi). Each successive entry in the array is at least lo greater than the preceding entry and at most lo + hi greater than the preceding entry.
     }
 
-    return retArr;
+    return retArr; //the array is constructed so that it is "born sorted."
   }//end prestoSortedArrayListo()
 
 
   public static void main( String[] args )
   {
-    /*~~~~v~~~~~~move~me~down~~~1~block~at~a~time~~~~~~~~~~v~~~~
+    /*~~~~v~~~~~~move~me~down~~~1~block~at~a~time~~~~~~~~~~v~~~~*/
     System.out.println("\n"+"al000"+":");
     ArrayList al000 = prestoArrayListo(0,0,0);
     System.out.println(al000);
@@ -143,7 +175,7 @@ public class Boogle
     ArrayList al05 = prestoArrayListo(20,1,5);
     System.out.println(al05);
     System.out.println(linSearch(al05,3));
-      ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~*/
+    /*  ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~*/
 
 
    //  test battery using sorted ArrayLists as search space

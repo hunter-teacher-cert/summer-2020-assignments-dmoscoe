@@ -16,7 +16,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Foogle
+public class FoogleScratch2016
 {
 
   //  <Returns the position of a specific integer element in an ArrayList. If the element isn't there, returns -1.>
@@ -39,14 +39,14 @@ public class Foogle
       //System.out.println(i);  //diagnostic under-the-hood view
       //retArr.add( Math.random() ); // [0,1)
       //retArr.add( (int)Math.random() ); //0
-      //retArr.add( (int)(hi * Math.random()) ); // [0,?)
-      retArr.add( lo + (int)(hi * Math.random()) ); // [?,?)
+      //retArr.add( (int)(hi * Math.random()) ); // [0, hi)
+      retArr.add( lo + (int)(hi * Math.random()) ); // [lo, lo + hi)
     }
     return retArr;
   }//end makeRandomArray()
 
 
-  //  <YOUR DESCRIPTIVE COMMENT HERE>
+  //  <Returns an ArrayList of random ints on [lo, (numItems * lo) + hi * (numItems - 1)>
   public static ArrayList randomStaircase(int numItems, int lo, int hi)
   {
     ArrayList retArr = new ArrayList();
@@ -131,7 +131,7 @@ public class Foogle
 
     
     System.out.println("\n"+"al"+":");
-    ArrayList al = makeRandomArray(32,0,100); //added first argument = 4
+    ArrayList al = makeRandomArray(32,0,100);
     System.out.println(al);
 
   }//end main
