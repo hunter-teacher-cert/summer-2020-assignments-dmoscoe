@@ -54,9 +54,8 @@ public class Scratch0843 {
 		if (!(al.size() < 2 || a < 0 || b < 0 || a > (al.size() - 1) || b > (al.size() - 1))) {
 					
 		int endValAta = (int) al.get(b);
-		int endValAtb = (int) al.get(a);
+		al.set(b, al.get(a));
 		al.set(a, endValAta);
-		al.set(b, endValAtb);
 		}
 	}
 	
@@ -72,19 +71,31 @@ public class Scratch0843 {
 		/* initialize variables */
 		
 		int min = (int) al.get(left);
+		int indexOfMin = left;
+		
+		/* update min */
 		
 		for (int i = left; i <= right; i++) {
 			if ((int) al.get(i) < min) {
 				min = (int) al.get(i);
+				indexOfMin = i;
 			}
 		}
-		return min;
+		return indexOfMin;
 	}
 	
 	
 	
 	public static void selectionSort(ArrayList al) {
 		/* Takes an ArrayList of ints and sorts it in ascending order. */
+		
+		/* check conditions */
+		
+		/* initialize variables */
+		
+		for (int leftBound = 0; leftBound < al.size(); leftBound++) {
+			swapper(al, leftBound, min(al, leftBound, al.size() - 1));
+		}	
 	}
 		
 	
@@ -120,6 +131,13 @@ public class Scratch0843 {
 		System.out.println(sample.toString());
 		swapper(sample, 3, 7);
 		System.out.println(sample.toString());
+		selectionSort(sample);
+		System.out.println(sample.toString());
+		System.out.println("min(sample, 2, 9) = " + min(sample, 2, 9));
+		System.out.println("min(sample, 2, 8) = " + min(sample, 2, 8));
+		System.out.println("min(sample, 2, 7) = " + min(sample, 2, 7));
+		System.out.println("min(sample, 0, 0) = " + min(sample, 0, 0));
+	
 	}
 		
 }
