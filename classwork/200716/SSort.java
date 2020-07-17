@@ -3,7 +3,7 @@ import java.io.*;
 
 /* Working on selection sort */
 
-public class Scratch0843 {
+public class SSort {
 
   //return ArrayList of random ints on range [lo,lo+hi)
   public static ArrayList prestoArrayListo(int numItems, int lo, int hi)
