@@ -8,10 +8,15 @@ public class BSTree {
 	root = null;
     }
 
-	public int search(int key){
+ 	public int search(int key){
+	
+	/* run-time for search: In the worst case, the while loop would examine every node (each node has one child, and the key is the last node in the tree). This is linear run-time. In the best case, the while loop would examine log2 n nodes, where n is the number of "generations" or levels of the tree. This is logarithmic run-time. */
+	
 		TreeNode current = root;
 
-		while (!(current.getLeft() == null && current.getRight() == null)){ //This doesn't search the last leaves on the tree. I have to change it but I don't know how yet.
+		while (!(current == null)){
+		
+
 			int currentValue = current.getData();
 			if (currentValue == key){
 				return 1;
@@ -23,7 +28,7 @@ public class BSTree {
 		}
 		throw new NullPointerException();
     }
-	
+		
     public void seed(){
 	TreeNode t;
 
