@@ -9,7 +9,7 @@ public class Driver {
 		t.seed();
 		int value;
 
-/* 		value = t.search(10);
+ 		value = t.search(10);
 		System.out.println(value);
 
 		value = t.search(15);
@@ -21,7 +21,7 @@ public class Driver {
 		} catch (NullPointerException e) {
 			System.out.println("17 not in tree");
 		}
- */	
+	
 		//Testing insert:
 		
 //		t.insert(3);
@@ -40,8 +40,69 @@ public class Driver {
 		
 //		System.out.println(t.search(11));
 //		System.out.println(t.search(50));
-			
+		
+		System.out.println("preorderTraverse: ");
 		t.preorderTraverse();
+		System.out.println();
+		System.out.println();
+		
+		System.out.println("postorderTraverse: ");
+		t.postorderTraverse();
+		System.out.println();
+		System.out.println();
+		
+		System.out.println("inorderTraverse: ");
+		t.inorderTraverse();
+		System.out.println();
+		System.out.println();
+		
+		//build a fresh tree each time and test delete on each element of a fresh tree.
+		
+		System.out.println("Testing t.delete(20): ");
+		t.delete(20);
+		t.inorderTraverse();
+		System.out.println();
+		
+ 		BSTree u = new BSTree();
+		u.seed();
+		System.out.println("Testing u.delete(10): ");
+		u.delete(10);
+		u.inorderTraverse();
+		System.out.println(); 
+		
+		BSTree v = new BSTree();
+		v.seed();
+		System.out.println("Testing v.delete(5): ");
+		v.delete(5);
+		v.inorderTraverse();
+		System.out.println();
+		
+		BSTree w = new BSTree();
+		w.seed();
+		System.out.println("Testing w.delete(8): ");
+		w.delete(8);
+		w.inorderTraverse();
+		System.out.println();
 	
+		BSTree x = new BSTree();
+		x.seed();
+		System.out.println("Testing x.delete(15): ");
+		x.delete(15);
+		x.inorderTraverse();
+		System.out.println();
+		
+		BSTree y = new BSTree();
+		y.seed();
+		System.out.println("Testing y.delete(22): ");
+		y.delete(22);
+		y.inorderTraverse();
+		System.out.println();
+		
+		BSTree z = new BSTree();
+		z.seed();
+		System.out.println("Testing z.delete(99): ");
+		z.delete(99);
+		z.inorderTraverse();
+		System.out.println();
 	}
 }

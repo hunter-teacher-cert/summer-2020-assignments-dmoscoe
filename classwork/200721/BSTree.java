@@ -144,6 +144,9 @@ public class BSTree {
 		if (root==null){
 			return;
 	}
+
+
+	
 		int fromTrailerToFront = 0; //will change to +1 if front is right of trailer, and -1 if front is left of trailer.
 
 	// find the node that we want to delete
@@ -193,23 +196,57 @@ public class BSTree {
 			if ((fromTrailerToFront == 1) && (front.getLeft() == null)) { //del target is a right child and has a right child
 				trailer.setRight(front.getRight());
 		
-		} else if ((fromTrailerToFront == 1) && (front.getRight() == null)) { //del target is a right child and has a left child
-		
-			trailer.setRight(front.getLeft());
-		} else if ((fromTrailerToFront == -1) && (front.getLeft() == null)) { //del target is a left child and has a right child
-			trailer.setLeft(front.getRight());
-		} else if ((fromTrailerToFront == -1) && (front.getRight() == null)) { //del target is a left child and has a left child
-			trailer.setLeft(front.getLeft());
+			} else if ((fromTrailerToFront == 1) && (front.getRight() == null)) { //del target is a right child and has a left child
+			
+				trailer.setRight(front.getLeft());
+			} else if ((fromTrailerToFront == -1) && (front.getLeft() == null)) { //del target is a left child and has a right child
+				trailer.setLeft(front.getRight());
+			} else if ((fromTrailerToFront == -1) && (front.getRight() == null)) { //del target is a left child and has a left child
+				trailer.setLeft(front.getLeft());
+			}
 		}
 	    // front has two children
-	    //
+	    
+		if ((front.getRight() != null) && (front.getLeft() != null)) {
+			// make a new pointer (usurper) and send it to the appropriate leaf.
+			// set the pointers of the leaf to the getRight and getLeft of the del target. But in some cases this means that you're setting a node's pointer to itself.
+			// set the appropriate pointer of the Trailer to usurper.
+			
+			TreeNode usurper;
+			usurper = front;
+			while (!(usurper.getLeft() == null && usurper.getRight() == null)) { //while usurper isn't a leaf
+				//if usurper = front, move left. The move right until you are at a leaf.
+				if (usurper == front) {
+					usurper = usurper.getLeft();
+				} else {
+					usurper = usurper.getRight();
+				}
+			} //now usurper is at the greatest value less than the del target, which is front. And we know this exists, because front has two children.
+				
+			usurper.setRight(front.getRight());
+			
+			if (!(front.getLeft() == usurper)) {
+				usurper.setLeft(front.getLeft());
+			}
+			
+			
+			// if (front != root) { Last problem with delete: you get an infinite loop when you try to delete the head. It has something to do with setting the pointers of the trailer. I haven't figured it out yet. Other than that it seems to work.
+				if (trailer.getLeft() == front) {
+					trailer.setLeft(usurper);
+				} else {
+					trailer.setRight(usurper);
+				}
+				//if usurper = front, and front 
+			}
+		
 	    // find the node with the largest value
 	    // on fronts left subtree
 	    // and replace front with it.
+		
+	
 		}
+
+
 	
 	}
-
-
-	
 }
