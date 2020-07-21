@@ -62,7 +62,6 @@ public class BSTree {
 		TreeNode trailer = null; //Thank you, Joshua.
 		
 		while (front != null) {
-			System.out.println("Entered while loop.");
 			if (front.getData() == key) {
 			return;
 		} else if (front.getData() < key) {
@@ -104,7 +103,27 @@ public class BSTree {
 		}
 		throw new NullPointerException();
     }
-		
+	
+	private void preorderTraverse(TreeNode current) {
+		System.out.println("1");
+		System.out.println("2");
+		if (current == null) {
+			System.out.println("3");
+			return;
+		}
+		System.out.println("5");
+		System.out.print(current.getData() + ", ");
+		System.out.println("6");
+		preorderTraverse(current.getLeft());
+		System.out.println("7");
+		preorderTraverse(current.getRight());
+	}
+
+	public void preorderTraverse(){
+		preorderTraverse(root);
+		System.out.println();
+    }
+	
     public void seed(){
 	TreeNode t;
 
@@ -121,6 +140,5 @@ public class BSTree {
 	root.getRight().setRight(new TreeNode(25));
 	
 	}
-    
     
 }
