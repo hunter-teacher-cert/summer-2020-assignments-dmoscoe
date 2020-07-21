@@ -190,13 +190,17 @@ public class BSTree {
 		} else if ( /* check to see if front has one child */ !((front.getRight() == null && front.getLeft() == null) && (front.getRight() != null && front.getLeft() != null))){
 	    // repoint front's parent to front's child
 		
-			if (fromTrailerToFront == 1) {
+			if ((fromTrailerToFront == 1) && (front.getLeft() == null)) { //del target is a right child and has a right child
 				trailer.setRight(front.getRight());
 		
-		} else {
-			
-				trailer.setLeft(front.getLeft());
-			
+		} else if ((fromTrailerToFront == 1) && (front.getRight() == null)) { //del target is a right child and has a left child
+		
+			trailer.setRight(front.getLeft());
+		} else if ((fromTrailerToFront == -1) && (front.getLeft() == null)) { //del target is a left child and has a right child
+			trailer.setLeft(front.getRight());
+		} else if ((fromTrailerToFront == -1) && (front.getRight() == null)) { //del target is a left child and has a left child
+			trailer.setLeft(front.getLeft());
+		}
 	    // front has two children
 	    //
 	    // find the node with the largest value
@@ -208,5 +212,4 @@ public class BSTree {
 
 
 	
-}
 }
