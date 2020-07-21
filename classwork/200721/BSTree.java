@@ -211,17 +211,28 @@ public class BSTree {
 			// make a new pointer (usurper) and send it to the appropriate leaf.
 			// set the pointers of the leaf to the getRight and getLeft of the del target. But in some cases this means that you're setting a node's pointer to itself.
 			// set the appropriate pointer of the Trailer to usurper.
-			
+
+//I need to add a usurperTrailer to detach the left and right pointers that point to usurper.
+
 			TreeNode usurper;
 			usurper = front;
+
+
+			TreeNode usurperTrailer;
+			usurperTrailer = front;
+
+
+			
 			while (!(usurper.getLeft() == null && usurper.getRight() == null)) { //while usurper isn't a leaf
 				//if usurper = front, move left. The move right until you are at a leaf.
 				if (usurper == front) {
+					usurperTrailer = usurper;
 					usurper = usurper.getLeft();
 				} else {
+					usurperTrailer = usurper;
 					usurper = usurper.getRight();
 				}
-			} //now usurper is at the greatest value less than the del target, which is front. And we know this exists, because front has two children.
+			} //now usurper is at the greatest value less than the del target, which is front. And usurperTrailer is right behind it. And we know both these exist, because front has two children.
 				
 			usurper.setRight(front.getRight());
 			
@@ -229,6 +240,8 @@ public class BSTree {
 				usurper.setLeft(front.getLeft());
 			}
 			
+			usurperTrailer.setLeft(null); //!!but you have to leave the other child if it exists.
+			usurperTrailer.setRight(null);
 			
 			// if (front != root) { Last problem with delete: you get an infinite loop when you try to delete the head. It has something to do with setting the pointers of the trailer. I haven't figured it out yet. Other than that it seems to work.
 				if (trailer.getLeft() == front) {
@@ -236,7 +249,7 @@ public class BSTree {
 				} else {
 					trailer.setRight(usurper);
 				}
-				//if usurper = front, and front 
+
 			}
 		
 	    // find the node with the largest value
@@ -249,4 +262,4 @@ public class BSTree {
 
 	
 	}
-}
+
