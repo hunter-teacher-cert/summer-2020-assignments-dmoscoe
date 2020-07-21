@@ -138,58 +138,75 @@ public class BSTree {
 	
 	}
 
-	    public void delete(int key){
+	public void delete(int key){
 
 	// if the tree is empty, nothing to delete
-	if (root==null){
-	    return;
+		if (root==null){
+			return;
 	}
-	
+		int fromTrailerToFront = 0; //will change to +1 if front is right of trailer, and -1 if front is left of trailer.
 
 	// find the node that we want to delete
 	// and the node above it using piggybacking
-	TreeNode front = root;
-	TreeNode trailer = root;
+		TreeNode front = root;
+		TreeNode trailer = root;
 
 	// do the piggyback loop
 	// until we either find the node or null
 	// if the key isn't present
-	while (front != null && front.getData() != key ){
-	    if (front.getData() < key){
-		trailer = front;
-		front = front.getRight();
-	    } else {
-		trailer = front;
-		front = front.getLeft();
-	    }
-	}
+		while (front != null && front.getData() != key ){
+			if (front.getData() < key){
+			trailer = front;
+			front = front.getRight();
+			fromTrailerToFront = 1;
+			} else {
+			trailer = front;
+			front = front.getLeft();
+			fromTrailerToFront = -1;
+			}
+		}
 
 	// if the key wasn't in the tree
-	if (front == null){
-	    return;
-	}
+		if (front == null){
+			return;
+		}
 
 	// if we get here
 	// front points to the node we want to delete
 	// and trailer points to the one above it
 
 	// case 1 -- the node we want to delete is a leaf
-	if (front.getLeft() == null &&
-	    front.getRight() == null) {
+		if (front.getLeft() == null &&
+			front.getRight() == null) {
 
 	    // repoint front's parent to null
-	} else if ( /* check to see if front has one child */){
+			if (fromTrailerToFront == 1) {
+				trailer.setRight(null);
+			} else {
+				trailer.setLeft(null);
+			}
+			
+		
+		} else if ( /* check to see if front has one child */ !((front.getRight() == null && front.getLeft() == null) && (front.getRight() != null && front.getLeft() != null))){
 	    // repoint front's parent to front's child
-	} else {
+		
+			if (fromTrailerToFront == 1) {
+				trailer.setRight(front.getRight());
+		
+		} else {
+			
+				trailer.setLeft(front.getLeft());
+			
 	    // front has two children
 	    //
 	    // find the node with the largest value
 	    // on fronts left subtree
 	    // and replace front with it.
-	    }
+		}
 	
 	}
 
 
 	
+}
 }
