@@ -139,125 +139,157 @@ public class BSTree {
 	}
 
 	public void delete(int key){
-
-	// if the tree is empty, nothing to delete
-		if (root==null){
-			return;
-	}
-
-
 	
-		int fromTrailerToFront = 0; //will change to +1 if front is right of trailer, and -1 if front is left of trailer.
-
-	// find the node that we want to delete
-	// and the node above it using piggybacking
-		TreeNode front = root;
-		TreeNode trailer = root;
-
-	// do the piggyback loop
-	// until we either find the node or null
-	// if the key isn't present
-		while (front != null && front.getData() != key ){
-			if (front.getData() < key){
+	//base case: the tree is empty.
+	
+	if (root == null) {
+		return;
+	}
+	
+	//if front is a right child, fromTrailerToFront = 1. If front is a left child, -1.
+	
+	int fromTrailerToFront = 0;
+	
+	//Use piggybacking to place front at the target for deletion, and trailer at its parent.
+	
+	TreeNode front = root;
+	TreeNode trailer = root;
+	
+	while ((front != null) && (front.getData() != key)) {
+		if (front.getData() < key) {
 			trailer = front;
 			front = front.getRight();
 			fromTrailerToFront = 1;
-			} else {
+		} else {
 			trailer = front;
 			front = front.getLeft();
 			fromTrailerToFront = -1;
-			}
 		}
-
-	// if the key wasn't in the tree
-		if (front == null){
-			return;
+	}
+	
+	//now front is the deletion target, and trailer is its parent. Or, if the deletion target is the root, then front and trailer both equal root, and fromTrailerToFront = 0.
+	
+	//if the key was not in the tree:
+	
+	if (front == null) {
+		return;
+	}
+	
+	//case 1: the deletion target is a leaf.
+	
+	if ((front.getLeft() == null) && (front.getRight() == null)) {
+		
+		//set corresponding pointer on trailer to null.
+		
+		if (fromTrailerToFront == 1) {
+			trailer.setRight(null);
+		} else {
+			trailer.setLeft(null);
 		}
-
-	// if we get here
-	// front points to the node we want to delete
-	// and trailer points to the one above it
-
-	// case 1 -- the node we want to delete is a leaf
-		if (front.getLeft() == null &&
-			front.getRight() == null) {
-
-	    // repoint front's parent to null
-			if (fromTrailerToFront == 1) {
-				trailer.setRight(null);
-			} else {
-				trailer.setLeft(null);
-			}
+	}
+	
+	//case 2: the deletion target has one child.
+	
+	if (!((front.getRight() == null && front.getLeft() == null) && (front.getRight() != null && front.getLeft() != null))) {
+		
+		//set corresponding pointer on trailer to front's child.
+		
+			//case 2a: deletion target is a right child and has a right child
 			
-		
-		} else if ( /* check to see if front has one child */ !((front.getRight() == null && front.getLeft() == null) && (front.getRight() != null && front.getLeft() != null))){
-	    // repoint front's parent to front's child
-		
-			if ((fromTrailerToFront == 1) && (front.getLeft() == null)) { //del target is a right child and has a right child
+			if ((fromTrailerToFront == 1) && (front.getLeft() == null)) {
 				trailer.setRight(front.getRight());
-		
-			} else if ((fromTrailerToFront == 1) && (front.getRight() == null)) { //del target is a right child and has a left child
+			}
 			
+			//case 2b: deletion target is a right child and has a left child
+			
+			else if ((fromTrailerToFront == 1) && (front.getRight() == null)) {
 				trailer.setRight(front.getLeft());
-			} else if ((fromTrailerToFront == -1) && (front.getLeft() == null)) { //del target is a left child and has a right child
+			}
+			
+			//case 2c: deletion target is a left child and has a right child
+			
+			else if ((fromTrailerToFront == -1) && (front.getLeft() == null)) {
 				trailer.setLeft(front.getRight());
-			} else if ((fromTrailerToFront == -1) && (front.getRight() == null)) { //del target is a left child and has a left child
+			}
+			
+			//case 2d: deletion target is a left child and has a left child
+			
+			else if ((fromTrailerToFront == -1) && (front.getRight() == null)) {
 				trailer.setLeft(front.getLeft());
 			}
-		}
-	    // front has two children
-	    
-		if ((front.getRight() != null) && (front.getLeft() != null)) {
-			// make a new pointer (usurper) and send it to the appropriate leaf.
-			// set the pointers of the leaf to the getRight and getLeft of the del target. But in some cases this means that you're setting a node's pointer to itself.
-			// set the appropriate pointer of the Trailer to usurper.
-
-//I need to add a usurperTrailer to detach the left and right pointers that point to usurper.
-
-			TreeNode usurper;
-			usurper = front;
-
-
-			TreeNode usurperTrailer;
-			usurperTrailer = front;
-
-
-			
-			while (!(usurper.getLeft() == null && usurper.getRight() == null)) { //while usurper isn't a leaf
-				//if usurper = front, move left. The move right until you are at a leaf.
-				if (usurper == front) {
-					usurperTrailer = usurper;
-					usurper = usurper.getLeft();
-				} else {
-					usurperTrailer = usurper;
-					usurper = usurper.getRight();
-				}
-			} //now usurper is at the greatest value less than the del target, which is front. And usurperTrailer is right behind it. And we know both these exist, because front has two children.
-				
-			usurper.setRight(front.getRight());
-			
-			if (!(front.getLeft() == usurper)) {
-				usurper.setLeft(front.getLeft());
-			}
-			
-			usurperTrailer.setLeft(null); //!!but you have to leave the other child if it exists.
-			usurperTrailer.setRight(null);
-			
-			// if (front != root) { Last problem with delete: you get an infinite loop when you try to delete the head. It has something to do with setting the pointers of the trailer. I haven't figured it out yet. Other than that it seems to work.
-				if (trailer.getLeft() == front) {
-					trailer.setLeft(usurper);
-				} else {
-					trailer.setRight(usurper);
-				}
-
-			}
-		
-	    // find the node with the largest value
-	    // on fronts left subtree
-	    // and replace front with it.
-		
+	}
 	
+	//case 3: the deletion target has two children.
+	
+	if ((front.getRight() != null) && (front.getLeft() != null)) {
+		
+		//declare usurper and usurperTrailer. Usurper will point to the greatest-valued TreeNode less than the value of the deletion target. usurperTrailer will point to usurper's parent.
+		
+		TreeNode usurper;
+		usurper = front;
+		TreeNode usurperTrailer;
+		usurperTrailer = front;
+		
+		int fromUsurperTrailerToUsurper = 0;
+		
+		//while usurper isn't a leaf, climb the tree starting at front. Move left first, then right.
+		
+		while (!((usurper.getLeft() == null) && (usurper.getRight() == null))) {
+		
+			//at first, usurper == front, so move left.
+			
+			if (usurper == front) {
+				usurperTrailer = usurper;
+				usurper = usurper.getLeft();
+				fromUsurperTrailerToUsurper = -1;
+			}
+			
+			//then, move right until usurper is a leaf.
+			
+			else {
+				usurperTrailer = usurper;
+				usurper = usurper.getRight();
+				fromUsurperTrailerToUsurper = 1;
+			}
 		}
+			
+		//detach the leaf usurper from its parent.
+	
+		if (fromUsurperTrailerToUsurper == -1) {
+			usurperTrailer.setLeft(null);
+		}
+		
+		else if (fromUsurperTrailerToUsurper == 1) {
+			usurperTrailer.setRight(null);
+		}
+		
+		//attach usurper to its new children.
+		
+		usurper.setRight(front.getRight());
+		usurper.setLeft(front.getLeft());
+		
+		//detach front from its children.
+		
+		front.setRight(null);
+		front.setLeft(null);
+		
+		//detach front from its parent and attach the parent to usurper.
+		
+		if (fromTrailerToFront == -1) {
+			trailer.setLeft(usurper);
+		}
+		
+		else if (fromTrailerToFront == 1) {
+			trailer.setRight(usurper);
+		}
+	
+		//if the deletion target is root, then point root to the new root.
+		
+		if (root.getLeft() == null && root.getRight() == null) {
+			root = usurper;
+		}
+	}
+}
 
 
 	
