@@ -11,7 +11,7 @@ public class Scratch1524 {
 
 	int i = 0;
 	while (n > 1) {
-			while ((n / primes[i]) * primes[i] == n) {
+			while (n % primes[i] == 0) {
 				n = n / primes[i];
 				primeFactors.add(primes[i]);
 			}
@@ -25,7 +25,7 @@ public class Scratch1524 {
 		
 	/* Every print statement gives the time to prime factorize all the ints from 0 to i. i is incrementing by 100 at a time, so every successive print statement includes the prime factorizations of 100 more numbers. We can graph this data to do an informal runtime analysis. See the screenshot for a first run-through. */	
 		
-		for (int i = 0; i < 29990; i += 100) {
+ 		for (int i = 0; i < 29990; i += 100) {
 			long m = System.currentTimeMillis();
 			for (int j = 2; j < i; j++) {
 				primeFactorizer(j);
@@ -33,5 +33,5 @@ public class Scratch1524 {
 			long n = System.currentTimeMillis();
 			System.out.println(n-m);
 		}
- }
+	}
  }
