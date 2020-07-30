@@ -60,7 +60,7 @@ public class DailyWork0630 {
 		}//end for r
 	}//end invert
 
-/**diagonal() below is my original attempt.
+/*diagonal() below is my original attempt.*/
 
 	public static void diagonal(int[][] d2, int r, int c, int direction, int value) {
 		if (direction == 3) {
@@ -88,9 +88,9 @@ public class DailyWork0630 {
 			}//end for i
 		}//end else	
 	}//end diagonal
-*/
 
-/**diagonal() below is Tsee Lee's code. */
+
+/*diagonal() below is Tsee Lee's code. 
 
 	public static void diagonal(int[][] d2, int r, int c, int direction, int value) {
 		if (r >= d2.length || c >= d2[0].length || r < 0 || c < 0) {
@@ -110,7 +110,7 @@ public class DailyWork0630 {
 		diagonal(d2,r,c,direction,value);
 	
 	}//end diagonal
-
+*/
 	public static void main(String[] args) {
 		int[][] arr = new int[20][20];
 		popArray(arr);
@@ -125,3 +125,4 @@ public class DailyWork0630 {
 		System.out.println();
 	}//end main
 }//end class
+
